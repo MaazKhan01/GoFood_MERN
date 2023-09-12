@@ -1,8 +1,10 @@
-import HeaderTop from "@/components/HeaderTop";
-import "./globals.css";
+import HeaderTop from "@/src/components/HeaderTop";
+import "../app/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import HeaderMain from "@/components/HeaderMain";
+import HeaderMain from "@/src/components/HeaderMain";
+import Navbar from "@/src/components/Navbar";
+// import { ApolloProvider } from '@apollo/client'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+      {/* <ApolloProvider client={client}> */}
         <HeaderTop />
         <HeaderMain />
+        <Navbar />
         {children}
+        {/* </ApolloProvider> */}
       </body>
     </html>
   );

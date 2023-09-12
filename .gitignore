@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .eslintrc.json
+/graphql-server/node_modules
 # testing
 /coverage
 
