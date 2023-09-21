@@ -25,6 +25,7 @@ const ProductCard: React.FC<propsTypes> = ({
           width={200}
           height={200}
           alt={title}
+          priority
         />
       </div>
       <div className="space-y-2 py-2">

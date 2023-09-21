@@ -1,3 +1,5 @@
+"use client"; 
+
 import HeaderTop from "@/src/components/HeaderTop";
 import "../app/globals.css";
 import type { Metadata } from "next";
@@ -5,6 +7,9 @@ import { Inter } from "next/font/google";
 import HeaderMain from "@/src/components/HeaderMain";
 import Navbar from "@/src/components/Navbar";
 // import { ApolloProvider } from '@apollo/client'
+import { useEffect, useState } from "react";
+import LoginForm from "../components/LoginForm";
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,14 +23,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check for a valid JWT token in local storage
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    setAuthenticated(true);
+  };
+
   return (
     <html lang="en">
       <body className={inter.className}>
-      {/* <ApolloProvider client={client}> */}
-        <HeaderTop />
-        <HeaderMain />
-        <Navbar />
-        {children}
+        {/* <ApolloProvider client={client}> */}
+        {authenticated ? (
+          <>
+            <HeaderTop />
+            <HeaderMain />
+            <Navbar />
+            {children}
+          </>
+        ) : (
+          <LoginForm onLogin={handleLogin} />
+        )}
+
         {/* </ApolloProvider> */}
       </body>
     </html>
